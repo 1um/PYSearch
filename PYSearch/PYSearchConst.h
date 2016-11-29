@@ -11,6 +11,7 @@
 
 #define PYMargin 10 // 默认边距
 #define PYBackgroundColor PYColor(255, 255, 255) // tableView背景颜色
+
 // 日志输出
 #ifdef DEBUG
 #define PYSearchLog(...) NSLog(__VA_ARGS__)
@@ -35,7 +36,8 @@
 #define PYSearchHistoryImage [UIImage imageNamed:@"PYSearch.bundle/search_history"] // 搜索历史Cell的图片
 #define PYSearchSuggestionImage [UIImage imageNamed:@"PYSearch.bundle/search"] // 搜索建议时，Cell的图片
 
-UIKIT_EXTERN NSString *const PYSearchPlaceholderText;   // 搜索框的占位符 默认为 @"搜索内容"
-UIKIT_EXTERN NSString *const PYHotSearchText;           // 热门搜索文本 默认为 @"热门搜索"
-UIKIT_EXTERN NSString *const PYSearchHistoryText;       // 搜索历史文本 默认为 @"搜索历史"
-UIKIT_EXTERN NSString *const PYEmptySearchHistoryText;  // 清空搜索历史文本 默认为 @"清空搜索历史"
+UIKIT_EXTERN NSString *PYSearchPlaceholderText;   // 搜索框的占位符 默认为 @"搜索内容"
+UIKIT_EXTERN NSString *PYHotSearchText;           // 热门搜索文本 默认为 @"热门搜索"
+UIKIT_EXTERN NSString *PYSearchHistoryText;       // 搜索历史文本 默认为 @"搜索历史"
+UIKIT_EXTERN NSString *PYEmptySearchHistoryText;  // 清空搜索历史文本 默认为 @"清空搜索历史"
+UIKIT_EXTERN NSString * PYCancelSearchText;

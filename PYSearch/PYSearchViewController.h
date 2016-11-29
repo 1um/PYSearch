@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PYSearchViewController, PYSearchSuggestionViewController;
+@class PYSearchViewController;
 
 typedef void(^PYDidSearchBlock)(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText); // 开始搜索时调用的block
 
@@ -37,31 +37,16 @@ typedef NS_ENUM(NSInteger, PYSearchResultShowMode) { // 搜索结果显示方式
     PYSearchResultShowModeDefault = PYSearchResultShowModeCustom // 默认为用户自定义（自己处理）
 };
 
-@protocol PYSearchViewControllerDataSource <NSObject, UITableViewDataSource>
-/** 返回用户自定义搜索建议Cell */
-- (UITableViewCell *)searchSuggestionView:(UITableView *)SearchSuggestionView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-/** 返回用户自定义搜索建议cell的rows */
-- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView numberOfRowsInSection:(NSInteger)section;
-@optional
-/** 返回用户自定义搜索建议cell的section */
-- (NSInteger)numberOfSectionsInSearchSuggestionView:(UITableView *)searchSuggestionView;
-/** 返回用户自定义搜索建议cell高度 */
-- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-
-@end
-
 @protocol PYSearchViewControllerDelegate <NSObject, UITableViewDelegate>
 
 @optional
 
 /** 点击(开始)搜索时调用 */
 - (void)searchViewController:(PYSearchViewController *)searchViewController didSearchWithsearchBar:(UISearchBar *)searchBar searchText:(NSString *)searchText;
-/** 点击热门搜索时调用，如果实现该代理方法则点击热门搜索时searchViewController:didSearchWithsearchBar:searchText:失效*/
+/** 点击热门搜索时调用 */
 - (void)searchViewController:(PYSearchViewController *)searchViewController didSelectHotSearchAtIndex:(NSInteger)index searchText:(NSString *)searchText;
-/** 点击搜索历史时调用，如果实现该代理方法则搜索历史时searchViewController:didSearchWithsearchBar:searchText:失效 */
+/** 点击搜索历史时调用 */
 - (void)searchViewController:(PYSearchViewController *)searchViewController didSelectSearchHistoryAtIndex:(NSInteger)index searchText:(NSString *)searchText;
-/** 点击搜索建议时调用，如果实现该代理方法则点击搜索建议时searchViewController:didSearchWithsearchBar:searchText:失效 */
-- (void)searchViewController:(PYSearchViewController *)searchViewController didSelectSearchSuggestionAtIndex:(NSInteger)index searchText:(NSString *)searchText;
 /** 搜索框文本变化时，显示的搜索建议通过searchViewController的searchSuggestions赋值即可 */
 - (void)searchViewController:(PYSearchViewController *)searchViewController  searchTextDidChange:(UISearchBar *)seachBar searchText:(NSString *)searchText;
 /** 点击取消时调用 */
@@ -93,13 +78,9 @@ typedef NS_ENUM(NSInteger, PYSearchResultShowMode) { // 搜索结果显示方式
 @property (nonatomic, copy) NSArray<UILabel *> *searchHistoryTags;
 /** 搜索历史标题,只有当PYSearchHistoryStyle != PYSearchHistoryStyleCell才有值 */
 @property (nonatomic, weak) UILabel *searchHistoryHeader;
-/** 搜索历史缓存保存路径, 默认为PYSearchHistoriesPath(PYSearchConst.h文件中的宏定义) */
-@property (nonatomic, copy) NSString *searchHistoriesCachePath;
 
 /** 代理 */
 @property (nonatomic, weak) id<PYSearchViewControllerDelegate> delegate;
-/** 数据源 */
-@property (nonatomic, weak) id<PYSearchViewControllerDataSource> dataSource;
 
 /** 热门搜索风格 （默认为：PYHotSearchStyleDefault）*/
 @property (nonatomic, assign) PYHotSearchStyle hotSearchStyle;
